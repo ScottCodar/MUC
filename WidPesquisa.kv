@@ -1,0 +1,240 @@
+#:import pat os
+
+
+<WidPesquisa>:
+	id: box_intdados
+	pos_hint: {'x': .02, 'top': .85}
+	size_hint: (.50, .70)
+
+	BoxLayout:
+		canvas:
+			Color:
+				rgba: (0, 0, .3, .4)
+			Rectangle:
+				pos: self.pos
+				size: self.size
+		pos_hint: {'x': 0, 'top': 1}
+		size_hint: (1, .27)
+
+	Label:
+		id: textopesquisa
+		pos_hint: {'right': .90, 'y': .93}
+		size_hint: (.80, .05)
+		padding: (1, 0)
+		font_size: '17sp'
+		text_size: self.size
+		halign: 'right'
+		valign: 'center'
+
+	Button:
+		id: btn_pesquisa
+		pos_hint: {'x': .55, 'y': .76}
+		size_hint: (.42, .07)
+		background_normal: 'Images/btn_azul.png'
+        background_down: 'Images/btn_azul2.png'
+        border: (0, 0, 0, 0)
+        text_size: self.size
+        halign: 'left'
+        line_height: 1.5
+        color: (0.831, 0.941, 1, 1)
+		text: '  Pesquisar'
+		on_release: root.pesquisa()
+
+	Button:
+		pos_hint: {'x': .12, 'y': .76}
+		size_hint: (.42, .07)
+		background_normal: 'Images/btn_azul.png'
+        background_down: 'Images/btn_azul2.png'
+        border: (0, 0, 0, 0)
+        text_size: self.size
+        halign: 'left'
+        line_height: 1.5
+        color: (0.831, 0.941, 1, 1)
+		text: '  Limpar'
+		on_release: root.limpa_widpesquisa()
+		on_release: app.root.close_wid()
+
+	Button:
+		background_normal: 'Images/Close.png'
+		background_down: 'Images/Close.png'
+		border: (0, 0, 0, 0)
+		pos_hint: {'x': .91, 'y': .93}
+		size_hint: (.05, .04)
+		on_release: app.root.remove_widget(root)
+		on_release: app.root.cont2 = 0
+		on_release: app.root.close_wid()
+
+	TextInput:
+		id: input_pesquisa
+		background_color: (0.96, 0.93, 0.73, 1) if self.focus else (0.83, 0.94, 1, 1)
+		size_hint: (.94, .07)
+		pos_hint: {'x': .03, 'y': .85}
+		hint_text: 'Pesquisa'
+		multiline: False
+		write_tab: False
+
+	Scrollwid:
+		id: scrollwid
+		pos_hint: {'x': 0, 'y': 0}
+		size_hint: (1, .70)
+
+		BoxLayout:
+			id: box_scrollwid
+			#padding: 5
+			spacing: 10
+			orientation: 'vertical'
+			size_hint_y: None
+			height: self.minimum_height
+
+
+
+<ScroolWidChild>:
+	id: btn_widchild
+	#border_radius: 5
+	canvas.before:
+		Color:
+			rgba: (0, 0, .3, .4)
+		RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [6,]
+	canvas:
+		Color:
+			rgba: (0.831, 0.941, 1, 1)
+		Line:
+			rounded_rectangle: (self.pos[0], self.pos[1], self.size[0], self.size[1], 5, 100)
+			width: .8
+	size_hint_y: None
+	height: 40
+	background_normal: ''
+    background_color: (0, 0, 0, 0)
+    background_down: 'Images/fundo_btn_azul.png'
+	text_size: self.size
+	padding: (7, 5)
+	halign: 'left'
+	valign: 'top'
+	line_height: 1.5
+	color: (0.831, 0.941, 1, 1)
+	on_release: app.root.opcoes_pesquisa(self.text)
+
+
+
+<ResPesquisaWid>:
+	canvas:
+		Color:
+			rgba: (0, 0, .3, .4)
+		Rectangle:
+			pos: self.pos
+			size: self.size
+	pos_hint: {'x': .53, 'top': .85}
+	size_hint: (.46, .90)
+
+    Button:
+        pos_hint: {'x': .92, 'top': .965}
+        size_hint: (.05, .04)
+        background_normal: 'Images/Close.png'
+		background_down: 'Images/Close.png'
+		border: (0, 0, 0, 0)
+        on_release: app.root.close_wid()
+
+	WidLabelTexto:
+		pos_hint: {'x': .04, 'top': .92}
+		text: 'Nome:'
+
+	WidLabelTexto:
+		pos_hint: {'x': .04, 'top': .84}
+		text: 'Duração:'
+
+	WidLabelTexto:
+		pos_hint: {'x': .04, 'top': .76}
+		text: 'Medicamento(s):'
+
+	WidLabelTexto:
+		pos_hint: {'x': .04, 'top': .68}
+		text: 'Dosagens/MG:'
+
+	WidLabelTexto:
+		pos_hint: {'x': .04, 'top': .60}
+		text: 'Intervalo:'
+
+	WidLabelTexto:
+		pos_hint: {'x': .04, 'top': .52}
+		text: 'IST'
+
+	WidLabelTexto:
+		pos_hint: {'x': .04, 'top': .44}
+		text: 'Diabete'
+
+	WidLabelTexto:
+		pos_hint: {'x': .04, 'top': .36}
+		text: 'Pasta:'
+
+	WidLabelTexto:
+		pos_hint: {'x': .04, 'top': .28}
+		text: self.posicao
+
+	WidLabelTexto:
+		pos_hint: {'x': .04, 'top': .20}
+		text: 'Protocolo:'
+
+	WidLabelResultados:
+		id: lbl_01
+		pos_hint: {'x': .32, 'top': .92}
+
+    WidLabelResultados:
+		id: lbl_02
+		pos_hint: {'x': .32, 'top': .84}
+
+	WidLabelResultados:
+		id: lbl_03
+		pos_hint: {'x': .32, 'top': .76}
+
+	WidLabelResultados:
+		id: lbl_04
+		pos_hint: {'x': .32, 'top': .68}
+
+	WidLabelResultados:
+		id: lbl_05
+		pos_hint: {'x': .32, 'top': .60}
+
+	WidLabelResultados:
+		id: lbl_06
+		pos_hint: {'x': .32, 'top': .52}
+
+	WidLabelResultados:
+		id: lbl_07
+		pos_hint: {'x': .32, 'top': .44}
+
+	WidLabelResultados:
+		id: lbl_08
+		pos_hint: {'x': .32, 'top': .36}
+
+	WidLabelResultados:
+		id: lbl_09
+		pos_hint: {'x': .32, 'top': .28}
+
+	WidLabelResultados:
+		id: lbl_10
+		pos_hint: {'x': .32, 'top': .20}
+
+
+<WidLabelTexto>:
+	canvas.before:
+		Color:
+			rgba: (0, 0, .3, .4)
+		Rectangle:
+			pos: self.pos
+			size: self.size
+	size_hint: (.5, .07)
+	text_size: self.size
+	padding: (5, 0)
+	halign: 'left'
+	valign: 'center'
+	color: (0.831, 0.941, 1, 1)
+
+<WidLabelResultados>:
+	size_hint: (.9, .06)
+	text_size: self.size
+	halign: 'center'
+	valign: 'center'
+	color: (0.831, 0.941, 1, 1)
